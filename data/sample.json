@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "name": "Alice Johnson",
+        "gender": "Female",
+        "address": "123 Maple Street, Springfield, IL",
+        "phoneNumber": "555-1234",
+        "email": "alice.johnson@example.com"
+    },
+    {
+        "id": 2,
+        "name": "Bob Smith",
+        "gender": "Male",
+        "address": "456 Oak Avenue, Austin, TX",
+        "phoneNumber": "555-5678",
+        "email": "bob.smith@example.com"
+    },
+    {
+        "id": 3,
+        "name": "Carol Lee",
+        "gender": "Female",
+        "address": "789 Pine Road, Seattle, WA",
+        "phoneNumber": "555-9012",
+        "email": "carol.lee@example.com"
+    },
+    {
+        "id": 4,
+        "name": "David Brown",
+        "gender": "Male",
+        "address": "101 Cedar Lane, Miami, FL",
+        "phoneNumber": "555-3456",
+        "email": "david.brown@example.com"
+    },
+    {
+        "id": 5,
+        "name": "Eve Davis",
+        "gender": "Female",
+        "address": "202 Birch Drive, Denver, CO",
+        "phoneNumber": "555-7890",
+        "email": "eve.davis@example.com"
+    },
+    {
+        "id": 6,
+        "name": "Frank Miller",
+        "gender": "Male",
+        "address": "303 Walnut Street, Boston, MA",
+        "phoneNumber": "555-2345",
+        "email": "frank.miller@example.com"
+    },
+    {
+        "id": 7,
+        "name": "Grace Wilson",
+        "gender": "Female",
+        "address": "404 Elm Court, San Francisco, CA",
+        "phoneNumber": "555-6789",
+        "email": "grace.wilson@example.com"
+    }
+]

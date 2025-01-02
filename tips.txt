@@ -1,0 +1,8 @@
+//-- nodemon --\\
+npm i --save-dev nodemon
+nodemon is used for restart the server automatically whenever wer made any changes
+
+
+//-- dotenv --\\
+npm i dotenv
+dotenv is used for load environment variables from .env file
