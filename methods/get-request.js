@@ -7,11 +7,6 @@ module.exports = (req, res) => {
     // cehcking VALIDATION
     const regexv4 = new RegExp(/^([+-]?\d{1,10})$/);
     let check = regexv4.test(id);
-
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods",  "GET, POST, DELETE, PATCH, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.setHeader("content-type", "application/json");
     
     if(req.url === "/api/contacts") {
         res.statusCode == 200;

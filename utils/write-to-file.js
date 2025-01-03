@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = (data) => {
-    console.log("teh data to", data);
     try{
         fs.writeFileSync(
             path.join(
