@@ -1,12 +1,12 @@
 module.exports = (req, res) => {
     let baseurl = req.url.substring(0, req.url.lastIndexOf("/") + 1);
-    console.log(baseurl);
     let id = req.url.split("/")[3];
-    console.log(id);
 
     // cehcking VALIDATION
     const regexv4 = new RegExp(/^([+-]?\d{1,10})$/);
     let check = regexv4.test(id);
+
+    console.log("received here");
     
     if(req.url === "/api/contacts") {
         res.statusCode == 200;
@@ -21,8 +21,6 @@ module.exports = (req, res) => {
         let filteredContact = req.contacts.filter((contact) => {
             return contact.id == id;
         });
-
-        console.log(filteredContact);
 
         if(filteredContact.length > 0) {
             res.statusCode == 200;

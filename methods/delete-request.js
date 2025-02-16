@@ -1,36 +1,56 @@
-module.exports = (req, res) => {
-    let baseurl = req.url.substring(0, req.url.lastIndexOf("/") + 1);
-    console.log(baseurl);
-    let id = req.url.split("/")[3];
+const url = require("url");
+const writefile = require("../utils/write-to-file");
 
-    const regexv4 = new RegExp(/^([+-]?\d{1,10})$/);
-    let check = regexv4.test(id);
-    console.log(check);
+module.exports = async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Content-Type", "application/json");
 
-    if (!regexv4.test(id)) {
-        res.writeHead(404, { "content-type": "application/json" });
-        res.end(JSON.stringify({ title: "Validation failed", message: "UI is not found" }));
+    console.log("delete");
 
-    }
+    if (req.url.startsWith("/api/contacts/delete_contact/") && req.method === "DELETE") {
+        // Parse URL properly to get ID
+        const parsedUrl = url.parse(req.url, true);
+        let contact_id = parsedUrl.query.id || parsedUrl.pathname.split("/").pop(); // Get last part of path
 
-    if (baseurl == "/api/contacts/" && regexv4.test(id)) {
+        // Validate ID
+        let is_valid_id = /^\d+$/.test(contact_id);
 
-        res.setHeader("content-type", "application/json");
-
-        let filteredContact = req.contacts.filter((contact) => {
-            return contact.id == id;
-        });
-
-        console.log(filteredContact);
-
-        if (filteredContact.length > 0) {
-            res.statusCode == 200;
-            res.write(JSON.stringify({ title: "done", message: filteredContact }));
-        } else {
-            res.writeHead(404, { "content-type": "application/json" });
-            res.end(JSON.stringify({ title: "error", message: "Request Contact Not Found" }));
+        if (!is_valid_id) {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ title: "Error", message: "Invalid Contact ID" }));
+            return;
         }
 
-        res.end();
+        try {
+            let saved_contacts = req.contacts;
+
+            // Find contact index by ID
+            let contact_index_id = saved_contacts.findIndex(contact => contact.id == contact_id);
+
+            if (contact_index_id === -1) {
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ title: "Error", message: "Contact Not Found" }));
+                return;
+            }
+
+            saved_contacts.splice(contact_index_id, 1);
+
+            writefile(saved_contacts);
+
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ title: "Success", message: "Contact Deleted Successfully" }));
+
+        } catch (err) {
+            console.error("Error:", err);
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ title: "Validation Failed", message: "Invalid Request Body" }));
+        }
+
+    } else {
+
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ title: "Error", message: "Invalid Route" }));
     }
-}
+};
